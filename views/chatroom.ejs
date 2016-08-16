@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<div id="main" class="col-md-9 content">
+	<div id='warnings'></div>
+	<div class='chatbox'>
+		<h1 style="display:block; margin-left:20px;"> <%=course%> <% if(chatroom.active) {%>(live) <% } else { %> (Inactive) <% } %> </h1>
+		<div class='chatroom' style="overflow: auto;">
+			<% for(var i=0; i<messages.length; i++) { %>
+			<div class="panel panel-success message" style="width:96%; margin:2% 2%" data-author="<%=messages[i].author%>" data-id="<%=messages[i].id%>">
+				<div class="panel-heading"><%= messages[i].author %></div>
+				<div class="panel-body" data-author="<%=messages[i].author%>" data-id="<%=messages[i].id%>">
+					<p><%= messages[i].content %>
+					<span class="small rating" style="margin-left: 1%; margin-right:2%; padding-top:5px; float:right;"><span class="glyphicon glyphicon-thumbs-up"></span> <%= messages[i].rating%></span>
+					</p>
+					<span class="small reply" style="float:right; margin:0 15px 0 5px;"><a href="javascript:void(0);"> Reply </a> </span>
+					<span class="small like" style="float:right; margin:0 5px"><a href="javascript:void(0);"> Like </a> </span>
+				</div>
+			</div>
+			<% } %>
+		</div>
+		<div id="post">
+		<form id='post-message' style="width:96%; margin:2% 2%">
+			<input type='hidden' name='type' value='message'>
+			<input type='hidden' name='croomid' id='croom' value='-1'>
+			<div class="message-box">
+				<textarea id="message-content" name='content'style="resize:none;" class='form-control'></textarea>
+				<div class="pull-right" style="margin-top:1%">
+					<button type='submit' id="post" class="btn btn-primary"> 
+						Send 
+					</button>
+				</div>
+			</div>
+		</form>	
+		</div>
+	</div>
+</div>
+<div class='well col-md-3 content'>
+	<div class='online'>
+		<h3> Currently online </h3>
+		<% for(var i=0; i<students.length; i++) { %>
+		<li data-name="<%=students[i].first_name%>"> <%= students[i].first_name %> </li>
+		<% } %>
+	</div>
+	<hr>
+	<h3> Most liked </h3><hr>
+	<% for(var i=0; i<sortedMessages.length; i++) { %>
+	<div class="message" style="" data-author="<%=sortedMessages[i].author%>" data-id="<%=sortedMessages[i].id%>"><p><%= sortedMessages[i].author %>: <%= sortedMessages[i].content %> </p><span class="small rating" style="margin-left: 1%;"> <span class="glyphicon glyphicon-thumbs-up"></span> <%= sortedMessages[i].rating%></span><span class="small like"><a href="javascript: void(0)"> Like </a> </span><span class="small reply"><a href="javascript: void(0)"> reply </a> </span><hr></div>
+	<% } %>
+</div>
+<script src="/js/jquery-1.11.0.js"></script>
+<script>
+	userID = <%= session.Student.id %>
+	
+	// $(document).ready(function(){
+	// 	//var navHeight = $('.navbar').height();
+	// 	var windowHeight = $(document).height();
+	// 	var chatboxHeight = windowHeight-70;
+	// 	$('#main').height(chatboxHeight);
+	// 	var postHeight = $('#post').height();
+	// 	var titleHeight = $('h1').height();
+	// 	$('.chatroom').height((chatboxHeight-titleHeight-postHeight)*0.75);
+	// });
+</script>

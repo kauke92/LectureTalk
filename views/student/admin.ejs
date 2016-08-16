@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<% if(flash && flash.err) { %>
+        <ul class="alert alert-success">
+        <% Object.keys(flash.err).forEach(function(error) { %>
+        <li><%- JSON.stringify(flash.err[error]) %></li>
+         <% }) %>
+        </ul>
+      <% } %>
+<div class="container" >
+	<h3> <a href="/student">Students </a> </h3>
+	<table class='table table-hover'>
+		<tr>
+			<th></th>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th></th>
+			<th colspan="3">Action</th>
+		</tr>
+		<% _.each(students, function(student) { %>
+		<tr data-id="<%=student.id %>" data-model="user">
+			<% if (student.online) { %>
+				<td><img src="images/on.jpeg" height="40" width="40"></img>
+			<% } else { %>
+				<td><img src="images/off.jpeg" height="40" width="40"></img>
+			<% } %>
+			<td><%= student.id %></td>
+			<td><%= student.first_name+ " " + student.last_name %></td>
+			<td><%= student.email %></td>
+			<% if (student.admin) { %>
+				<td><img src ="/images/admin.jpeg" height="40" width="40"></td>
+			<% } else { %>
+				<td><img src ="/images/user.jpeg" height="40" width="40"></td>
+			<% } %>
+			
+			<td><a href="/student/show/<%= student.id %>" class="btn btn-sm btn-primary">Show</a></td>
+			<td><a href="/student/edit/<%= student.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+			
+			<td><form action="/student/destroy/<%= student.id %>" method="POST">
+				<input type="hidden" name="_method" value="delete"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+			</form></td>
+		</tr>
+		<% }) %>
+	</table>
+
+
+	<h3><a href="/courses">Courses </a></h3>
+	<table class='table table-hover'>
+		<tr>
+			<th>Code</th>
+			<th>Name</th>
+			<th>Credit point</th>
+			<th>Enrolled Students</th>
+			<th>Start Date</th>
+			<th>Action</th>
+		</tr>
+		<% _.each(courses, function(course) { %>
+		<tr data-id="<%=course.unit_code %>" data-model="course">
+			<td><%= course.unit_code %></td>
+			<td><%= course.name %></td>
+			<td><%= course.credit_points %></td>
+			<td><%= course.students.length %></td>
+			<td><%= new Date(course.start_date).getDate()%>/<%= new Date(course.start_date).getMonth()+1%>/<%= new Date(course.start_date).getFullYear()%></td>
+			
+			<td><form action="/course/destroy/<%= course.unit_code %>" method="POST">
+				<input type="hidden" name="_method" value="delete"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+			</form></td>
+		</tr>
+		<% }) %>
+	</table>
+	<div>
+	<a href="/course/new" class="btn btn-sm btn-primary">Create new course</a></td>
+	</div>
+</div>

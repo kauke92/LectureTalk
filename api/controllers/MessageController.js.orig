@@ -1,0 +1,38 @@
+<<<<<<< HEAD
+/**
+ * MessageController
+ *
+ * @description :: Server-side logic for managing messages
+ * @help        :: See http://links.sailsjs.org/docs/controllers
+ */
+
+module.exports = {
+	
+};
+
+=======
+/**
+ * MessageController
+ *
+ * @description :: Server-side logic for managing messages
+ * @help        :: See http://links.sailsjs.org/docs/controllers
+ */
+
+module.exports = {
+
+	create: function(req, res) {
+		
+		Message.create({
+			content: req.body.content,
+			date: new Date(),
+			rating: 0
+		}).exec(function CB(err, msg) {
+			if(err) console.log(err);
+			Message.publishCreate(msg, req.socket);
+			res.send({});
+		})
+	}
+	
+};
+
+>>>>>>> b0f203419423f8719d8ab3fd19b705f0828a5a08

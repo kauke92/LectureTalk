@@ -1,0 +1,45 @@
+<!DOCTYPE html>    
+<div class="container" >
+	<div class = "page-header">
+		<h1>Manage Unit of Study</h1>
+	</div>
+		<h3 style="padding-bottom:18px">Enrolled Subjects</h3>
+		<% if (courses.length<1) { %>
+			<p>You have not been enrolled in any course.</p>	
+		<% } else {%>
+		<table class='table' style="border-collapse:collapse" style="border-right:none">
+			<tr>
+				<th>Unit Code</th>
+				<th>Name</th>
+				<th>Credit Points</th>
+				<th>Action</th>
+			</tr>
+			<% _.each(courses, function(course) { %>
+			<tr>
+				<td><%= course.unit_code %></td>
+				<td><%= course.name %></td>
+				<td><%= course.credit_points %></td>	
+				<td style="border:none" style="border-bottom:none">
+					<form action="delete_validate" method="post">
+						<input type="hidden" name="unit_code" value="<%=course.unit_code %>"/>
+						<button type="submit" class="btn btn-default">Delete</button>
+					</form>
+				</td>
+			</tr>
+			<% }) %>
+		</table>
+		<% } %>
+
+
+<h3 style="padding-bottom:18px">Search for a Unit of Study</h3>
+	<form action="search" method="get" class="form-inline" role="form"> 
+  		<div class="input-group">
+    		<input type="search" class="form-control" name="unit_code">
+      		<span class="input-group-btn">
+        		<button type="submit" class="btn btn-default">
+          			<span class="glyphicon glyphicon-search"></span>
+        		</button>
+      		</span>
+  		</div>
+	</form>
+</div>

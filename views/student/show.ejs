@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<div class='container'>
+	<h1><%= student.first_name + " " + student.last_name  %> </h1>
+	<br>
+	<h3>degree: <%- student.degree %></h3>
+	<% if (session.authenticated && ((session.Student.admin) || (session.Student.id==student.id))) { %>
+		<h3>contact: <%- student.email %></h3>
+		<a class="btn btn-medium btn-primary" href="/student/edit/<%= student.id %>">Edit</a>
+	<% } %>
+</div>

@@ -1,0 +1,64 @@
+<<<<<<< HEAD
+/**
+* Message.js
+*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
+*/
+
+module.exports = {
+
+  attributes: {
+  	text: 'string',
+  	author: 'int',
+  	chatroom: 'int'  	
+
+  }
+};
+
+=======
+/**
+* Message.js
+*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
+*/
+
+module.exports = {
+
+  attributes: {
+  	content: {
+  		type: 'string',
+  		required: true
+  	},
+
+  	date: {
+  		type: 'datetime',
+  		required: false
+  	},
+
+  	rating: {
+  		type: 'int',
+  		required: false
+  	},
+
+  	// chatroom: {
+  	// 	model: 'chatroom',
+  	// 	required: true
+  	// },
+
+  	// author: {
+  	// 	model: 'Student',
+  	// 	required: true
+  	// }
+
+  	// replies: {
+  	// 	collection: 'Message'
+  	// 	via: 'message'
+
+  	// }
+
+  }
+};
+
+>>>>>>> b0f203419423f8719d8ab3fd19b705f0828a5a08

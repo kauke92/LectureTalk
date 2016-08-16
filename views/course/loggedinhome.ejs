@@ -1,0 +1,196 @@
+<!DOCTYPE html>	
+	<style>
+	.borderless tbody tr td, .borderless thead tr th {
+	    border: none;
+	}
+	</style>
+  	<div class="container" >
+		<h2>Enrolled Subjects</h2>
+		<% if (courses.length<1) { %>
+			<p>You have not been enrolled in any course.</p>
+			<br>
+				<br>
+					<a type="button" href="course/manage" class="btn btn-primary">Add Unit of Study</a>
+		<% } else {%>
+			<a type="button" href="/course/manage" class="btn btn-primary" style="float: right;">Manage Unit of Study</a>
+			<br><br><br>
+			<% _.each(courses, function(course) { %>
+			<div class="panel panel-success">
+
+			  <div class="panel-heading">
+			    <h2 class="panel-title"><%= course.unit_code %> - <%= course.name %></h2>
+			  </div>
+			  <table class='table borderless'>
+			  	<tr>
+			  		<td style="padding:10px 30px" rowspan="2">
+			  			<p>
+					    	<strong>Credit points: </strong><%= course.credit_points %>
+					    	<br>
+					    	<strong>Enrolled students: </strong><%= course.students.length %>
+					    	<br>
+					    	<strong>Lecture time: </strong><br>
+					    	<ul>
+					    		<% function mycomparator(a,b) {if(a.day==b.day){return a.start_time - b.start_time}return a.day - b.day;} %>
+					    		<% _.each(course.lecturestreams.sort(mycomparator), function(lecturestream) { %>
+					    		<li>
+					    		<% var day = "Monday" %>
+					    		<% if(lecturestream.day==0){ %>
+					    		<% day = "Monday" %>
+					    		<% }else if(lecturestream.day==1){ %>
+					    		<% day = "Tuesday" %>
+					    		<% }else if(lecturestream.day==2){ %>
+					    		<% day = "Wednesday" %>
+					    		<% }else if(lecturestream.day==3){ %>
+					    		<% day = "Thursday" %>
+					    		<% }else if(lecturestream.day==4){ %>
+					    		<% day = "Friday" %>
+					    		<% }else if(lecturestream.day==5){ %>
+					    		<% day = "Saturday" %>
+					    		<% }else if(lecturestream.day==6){ %>
+					    		<% day = "Sunday" %>
+					    		<% } %>
+					    		<% var apm = "A.M." %>
+					    		<% var hour = lecturestream.start_time.toString().substring(0, 2) %>
+					    		<% var minutes = lecturestream.start_time.toString().substring(2, 4) %>
+					    		<% if (lecturestream.start_time<1000 && lecturestream.start_time>99){ %>
+					    		<% hour = lecturestream.start_time.toString().substring(0, 1) %>
+					    		<% minutes = lecturestream.start_time.toString().substring(1, 3) %>
+					    		<% }else if (lecturestream.start_time<100 && lecturestream.start_time>9){ %>
+					    		<% hour = "12" %>
+					    		<% minutes = lecturestream.start_time.toString().substring(0, 2) %>
+					    		<% }else if (lecturestream.start_time<9){ %>
+					    		<% hour = "12" %>
+					    		<% minutes = "0"+lecturestream.start_time.toString().substring(0, 1) %>
+					    		<% }else{ %>
+					    		<% if (parseInt(hour)>12){ %>
+					    		<% hour = (parseInt(hour)-12).toString() %>
+					    		<% apm = "P.M." %>
+					    		<% } else if(parseInt(hour)==12){ %>
+					    		<% apm = "P.M." %>
+					    		<% } %>
+					    		<% } %>
+					    		<%= day%> <%= hour%>:<%= minutes%> <%= apm%> - 
+					    		<% apm = "A.M." %>
+					    		<% hour = lecturestream.end_time.toString().substring(0, 2) %>
+					    		<% minutes = lecturestream.end_time.toString().substring(2, 4) %>
+					    		<% if (lecturestream.end_time<1000 && lecturestream.end_time>99){ %>
+					    		<% hour = lecturestream.end_time.toString().substring(0, 1) %>
+					    		<% minutes = lecturestream.end_time.toString().substring(1, 3) %>
+					    		<% }else if (lecturestream.end_time<100 && lecturestream.end_time>9){ %>
+					    		<% hour = "12" %>
+					    		<% minutes = lecturestream.end_time.toString().substring(0, 2) %>
+					    		<% }else if (lecturestream.end_time<9){ %>
+					    		<% hour = "12" %>
+					    		<% minutes = "0"+lecturestream.end_time.toString().substring(0, 1) %>
+					    		<% }else{ %>
+					    		<% if (parseInt(hour)>12){ %>
+					    		<% hour = (parseInt(hour)-12).toString() %>
+					    		<% apm = "P.M." %>
+					    		<% } else if(parseInt(hour)==12){ %>
+					    		<% apm = "P.M." %>
+					    		<% } %>
+					    		<% } %>
+					    		<% if (parseInt(hour)>12){ %>
+					    		<% hour = (parseInt(hour)-12).toString() %>
+					    		<% apm = "P.M." %>
+					    		<% } %>
+					    		<%= hour%>:<%= minutes%> <%= apm%>
+					    		</li>
+					    		<% }) %>
+					    	</ul>
+					    </p>
+					</td>
+					<td style="padding:10px 40px 10px 10px; vertical-align: middle;" align="right">
+						<% function containsObject(obj, list) {for (var i = 0; i < list.length; i++) {if (list[i].id === obj.id) {return true;}}return false;} %>
+						<% var chatroom_id = -1 %>
+						<% _.each(chatrooms, function(chatroom) { %>
+							<% if (chatroom.active){ %>
+								<% if (containsObject(chatroom.lecture_stream, course.lecturestreams)){ %>
+									<% chatroom_id = chatroom.id %>
+								<% } %>
+							<% } %>
+						<% }) %>
+						<a type="button" class="btn btn-success" <% if (chatroom_id==-1){ %>style="visibility: hidden;"<% }else{ %> href="/chatroom?id=<%= chatroom_id %>" <% } %>>View Live Chatroom</a>
+					</td>
+			  	</tr>
+			  	<tr>
+			  		<td style="padding:10px 40px 10px 10px; vertical-align: middle;" align="right" >
+
+			  			
+			  			<!-- <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Live Chatroom</a>
+						<a type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Archived Chatrooms</a> -->
+						<a type="button" class="btn btn-default" data-toggle="modal" data-target="#modal<%= course.unit_code%>">Archived Chatrooms</a>
+
+					</td>
+					<div class="modal fade" id="modal<%= course.unit_code%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					      <h4 class="modal-title" id="myModalLabel">Archived Chatrooms</h4>
+					      </div>
+					      <div class="modal-body">
+					      	<p>
+					      		<strong>Unit of Study: </strong><%= course.unit_code%> - <%= course.name %>
+					      		<ul>
+					      			<% 
+					      			var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+									var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+									function appendZero(num) {
+									  if (num < 10) {
+									    return "0" + num;
+									  }
+									  return num;
+									}
+					      			function getTime(date) {
+									  hour = date.getHours();
+									  var dd = "A.M.";
+									  var h = hour;
+									    if (h > 12) {
+									        h = hour-12;
+									        dd = "P.M.";
+									    }
+									    if (h == 0) {
+									        h = 12;
+									    }
+									  return {
+									    day: days[date.getDay()],
+									    date: date.getDate(),
+									    month: months[date.getMonth()],
+									    hour: appendZero(h),
+									    minute: appendZero(date.getMinutes()),
+									    dd: dd  
+									  };
+									} %>
+
+						      		<% var count = 0 %>
+						      		<% _.each(chatrooms, function(chatroom) { %>
+										<% if (chatroom.archive){ %>
+											<% if (containsObject(chatroom.lecture_stream, course.lecturestreams)){ %>
+												<% count++ %>
+												<li>
+													<% var start_time = getTime(new Date(chatroom.start_time)) %>
+													<% var end_time = getTime(new Date(chatroom.end_time)) %>
+													<a style="margin: 2px"type="button" class="btn btn-default" href="chatroom?id=<%= chatroom.id %>"><%= start_time.day %> <%= start_time.date %> <%= start_time.month %> <%= start_time.hour %>:<%= start_time.minute %> <%= start_time.dd %> - <%= end_time.hour %>:<%= end_time.minute %> <%= end_time.dd %></a>
+												</li>
+											<% } %>
+										<% } %>
+									<% }) %>
+								</ul>
+								<% if (count==0) {%>
+								<br>
+								Sorry, there isn't any archived chatroom for this Unit of Study.
+								<% } %>
+					      	</p>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+			  	</tr>
+			  </table>
+			</div>
+			<% }) %>
+		<% } %>
+	</div>

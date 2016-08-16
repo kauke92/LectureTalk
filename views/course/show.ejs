@@ -1,0 +1,24 @@
+<div class='container'>
+	<h1><%= course.unit_code + " " + course.name  %> </h1>
+	<br>
+	<h3>Credit points: <%- course.credit_points %></h3>
+	<h3>Start date: <%- new Date(course.start_date).getDate()%>/<%- new Date(course.start_date).getMonth()+1%>/<%- new Date(course.start_date).getFullYear()%></h3>
+	<% _.each(chatrooms, function(chatroom, id) { %>
+		<% if (Date.parse(chatroom.start_time) <= Date.parse(new Date())) { %>
+		<h5><a href="/chatroom?id=<%=chatroom.id%>">  Chatroom for date : <%= new Date(chatroom.start_time).getDate()%>/<%= new Date(chatroom.start_time).getMonth()+1%>/<%= new Date(chatroom.start_time).getFullYear()%>
+			<% if (new Date(chatroom.start_time).getMinutes() == 0) { %>
+				 <%= new Date(chatroom.start_time).getHours()%>:00
+			<% } else { %>
+				<%= new Date(chatroom.start_time).getHours()%>:<%= new Date(chatroom.start_time).getMinutes()%>
+			<% } %>
+		
+		</a>
+		</h5>
+		<% } %>
+
+	<% }) %>
+	<% if (session.authenticated && ((session.Student.admin) )) { %>
+			<a class="btn btn-medium btn-primary" href="/course/edit/<%= course.unit_code %>">Edit</a>
+	<% } %>
+	<!--<a class="btn btn-medium btn-primary" href="/student/edit/<%= course.unit_code %>">Edit</a> -->
+</div>

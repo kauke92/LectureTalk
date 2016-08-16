@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<div class="container" >
+	<div class="page-header">
+		<h2>Add a Unit of Study</h2>
+	</div>		
+	<% if (course == null) { %>
+		<p><h4 style="padding-bottom:18px">Your search returned no matching result</h4></p>
+	<% } else {%>
+		<p><h4 style="padding-bottom:18px">Your search found unit code: <%=course.unit_code %></h4></p>
+		<p><h5>Course name: <%=course.name%><h5></p>
+		<p><h5>Credit points: <%=course.credit_points%><h5></p>
+		<p><h5 style="padding-bottom:18px">Click Add to add the unit to your enrolled units<h5></p>
+				<div class = "row">
+					<div class="col-md-1">		
+						<form action="/course/add" method="post" class="form-inline" role="form"> 
+  							<div class="input-group">
+    							<class="form-control">
+    								<input type="hidden" name="unit_code" value="<%=course.unit_code %>"/>
+      								<span class="input-group-btn">
+        								<button type="submit" class="btn btn-primary">Add</button>
+      								</span>
+  							</div>
+						</form>
+					</div>
+					<div class="col-md-1">
+						<a type="button" class="btn btn-primary" href="/course/manage">Back to Manage Unit of Study</a>
+					</div>
+				</div>
+	<% } %>
+
+</div>

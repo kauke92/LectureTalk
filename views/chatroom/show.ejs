@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<div class="container">
+	<div>
+		<h2> Messeages for chatroom </h2> 
+	</div>
+
+	<div>
+		<h4> Course <a href="/course/show/<%=course.unit_code%>"><%=course.unit_code%> <%=course.name%> </a></h4>
+	</div>
+	<div>
+		<h4>Date: <%= new Date(chatroom.start_time).getDate()%>/<%= new Date(chatroom.start_time).getMonth()+1%>/<%= new Date(chatroom.start_time).getFullYear()%></h4>
+		<% if (new Date(chatroom.start_time).getMinutes() == 0) { %>
+			<h4>Start Time: <%= new Date(chatroom.start_time).getHours()%>:00</h4>
+		<% } else { %>
+			<h4>Start Time: <%= new Date(chatroom.start_time).getHours()%>:<%= new Date(chatroom.start_time).getMinutes()%></h4>
+		<% } %>
+	</div>
+	<div>
+		<div style="float: left;">
+			<% if (new Date(chatroom.end_time).getMinutes() == 0) { %>
+				<h4>End Time: <%= new Date(chatroom.end_time).getHours()%>:00</h4>
+			<% } else { %>
+				<h4>Start Time: <%= new Date(chatroom.end_time).getHours()%>:<%= new Date(chatroom.end_time).getMinutes()%></h4>
+			<% } %>
+		</div>
+		<div style="float: right;">
+			<a type="button" href="/course/manage" class="btn btn-primary" >Top 5 messages</a>
+		</div>	
+	</div>
+</div>
+<div class='container'>
+		
+		<% _.each(messages, function(message) { %>
+			
+			<div class="panel panel-danger">
+			    <div class="panel-heading">
+			        <h1 class="panel-title"><a href="/student/show/ <%=message.author.id%>"><%=message.author.first_name%>  <%=message.author.last_name%></a></h1>
+			    </div>
+			    <div class="panel-body">
+
+			    	<p style="float: left;"><%=message.content%></p>
+			    	<p style="float: right;"><%=message.date%></p>
+			    </div>
+			</div>
+			<!-- <h3><a href="/student/show/ <%=message.author.id%>"><%=message.author.first_name%>  <%=message.author.last_name%></a> <i>said: </i> <%=message.content%></h3> -->
+		<% }) %>
+</div>
+

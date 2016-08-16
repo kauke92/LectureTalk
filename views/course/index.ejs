@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<div class="container" >
+	<h3> Courses </h3>
+	<table class='table'>
+		<tr>
+			<th>Code</th>
+			<th>Name</th>
+			<th>Credit point</th>
+		</tr>
+		<% _.each(courses, function(course) { %>
+		<tr data-id="<%=course.unit_code %>" data-model="course">
+			<td><%= course.unit_code %></td>
+			<td><%= course.name %></td>
+			<td><%= course.credit_points %></td>
+			
+			
+			<td><a href="/course/show/<%= course.unit_code  %>" class="btn btn-sm btn-primary">Show</a></td>
+			<td><a href="/course/edit/<%= course.unit_code %>" class="btn btn-sm btn-warning">Edit</a></td>
+			
+			<td><form action="/course/destroy/<%= course.unit_code %>" method="POST">
+				<input type="hidden" name="_method" value="delete"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+			</form></td>
+		</tr>
+		<% }) %>
+	</table>
+	<div>
+	<a href="/course/new" class="btn btn-sm btn-primary">Create new course</a></td>
+	</div>
+
+</div>

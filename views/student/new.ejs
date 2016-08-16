@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><label aria-hidden="true">&times;</label><label class="sr-only">Close</label></button>
+        <h4 class="modal-title">Register</h4>
+      </div>
+      <% if(flash && flash.err) { %>
+        <ul class="alert alert-success">
+        <% Object.keys(flash.err).forEach(function(error) { %>
+        <li><%- JSON.stringify(flash.err[error]) %></li>
+         <% }) %>
+        </ul>
+      <% } %>
+
+      <form action='/signup' method="post">
+      <div class="modal-body">
+    
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>First Name</label>
+                <input type="firstname" class="form-control" id = 'fistname' name="first_name" placeholder="First Name..."/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Last Name</label>
+                <input type="lastname" class="form-control" id = 'lastname' name="last_name" placeholder="Last Name..."/>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Email</label>
+                <input type="email" class="form-control" id = 'email' name="email" placeholder="Email..."/>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Password</label>
+                <input type="password" class="form-control" id = 'password' name="password" placeholder="password..."/>
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" id = 'password' name="confirm_password" placeholder="password..."/>
+            </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+      </form>
+    </div>
+  </div>
+  

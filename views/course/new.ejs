@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<h1> You are adding a new course </h1>
+
+    
+      <% if(flash && flash.err) { %>
+        <ul class="alert alert-success">
+        <% Object.keys(flash.err).forEach(function(error) { %>
+        <li><%- JSON.stringify(flash.err[error]) %></li>
+         <% }) %>
+        </ul>
+      <% } %>
+
+      <form action='/course/create' method="post">
+      <div class="modal-body">
+    
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Course Code</label>
+                <input type="unit_code" class="form-control" id = 'unit_code' name="unit_code" placeholder="Unit code..."/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Course Name</label>
+                <input type="name" class="form-control" id = "name" name="name" placeholder="Unit Name..."/>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Credit points</label>
+                <input type="credit_points" class="form-control" id = 'credit_points' name="credit_points" placeholder="Credit Points..."/>
+
+            </div>
+        </div>
+        <div class="row">
+          <label class="control-label col-xs-2">Date</label>
+           <input  name="date" type ="text" class="col-xs-2"/>
+         </div>
+
+         <div class="row">
+         <label class="control-label col-xs-2">Month</label>
+         <input name="month" type ="text" class="col-xs-2"/>
+         </div>
+
+         <div class="row">
+         <label class="control-label col-xs-2">Year</label>
+         <input name="year" type ="text" class="col-xs-2"/>
+         </div>
+
+       <!-- <div class="form-group">
+            <div class="input-group col-sm-10">
+                <label>Number of lectures per week</label>
+                <input type="lecperweek" class="form-control" id = 'lecperweek' name="lecperweek" placeholder="Number of lectures per week..."/>
+
+            </div>
+        </div> -->
+         <% for (i=1; i<= 3; i++) { %>
+            <div class="row">
+              <label class="control-label col-xs-2">Day<%= i %> </label>
+              <input name="day<%=i%>" type ="text" class="col-xs-2"/>
+            </div> 
+             <div class="row">
+              <label class="control-label col-xs-2">Start Time <%= i %> </label>
+              <input name="start_time<%=i%>" type ="text" class="col-xs-2"/>
+            </div> 
+             <div class="row">
+              <label class="control-label col-xs-2">Finish Time <%= i %> </label>
+              <input name="end_time<%=i%>" type ="text" class="col-xs-2"/>
+            </div>       
+         <% } %>
+
+        
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+      </form>

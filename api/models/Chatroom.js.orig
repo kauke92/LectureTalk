@@ -1,0 +1,53 @@
+/**
+* Chatroom.js
+*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
+*/
+
+module.exports = {
+
+  attributes: {
+	//different to the type in lecturestream
+  	start_time:{
+  		type:'datetime',
+  		required: true
+  	},
+
+  	//different to the type in lecturestream
+  	end_time:{
+  		type:'datetime',
+  		required: true
+  	},
+
+  	active:{
+  		type:'boolean',
+  		defaultsTo: false
+  	},
+
+  	archive:{
+  		type:'boolean',
+  		defaultsTo: false
+  	},
+
+    lecture_stream: {
+<<<<<<< HEAD
+    	model: 'lecturestream',
+      required: false
+=======
+    	model: 'Lecturestream'
+>>>>>>> bb4a89f102ad27b2a9f07b247ac92ead9177a2e5
+    },
+
+    messages: {
+    	collection:'Message',
+    	via: 'chatroom'
+    },
+
+    students: {
+      collection: 'student',
+      via: 'chatroom'
+    }
+  }
+};
+

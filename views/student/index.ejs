@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<div class="container" >
+	<h3> Students </h3>
+	<table class='table'>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<% _.each(students, function(student) { %>
+		<tr data-id="<%=student.id %>" data-model="user">
+			<td><%= student.id %></td>
+			<td><%= student.first_name+ " " + student.last_name %></td>
+			<td><%= student.email %></td>
+			<% if (student.admin) { %>
+				<td><img src ="http://i140.photobucket.com/albums/r30/troj4nm4n/RootAdmin.png" height="40" width="40"></td>
+			<% } else { %>
+				<td><img src ="http://www.aca.edu.in/images/admin.png" height="40" width="40"></td>
+			<% } %>
+			
+			<td><a href="/student/show/<%= student.id %>" class="btn btn-sm btn-primary">Show</a></td>
+			<td><a href="/student/edit/<%= student.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+			
+			<td><form action="/student/destroy/<%= student.id %>" method="POST">
+				<input type="hidden" name="_method" value="delete"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+			</form></td>
+		</tr>
+		<% }) %>
+	</table>
+
+
+
+</div>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<% if ((!req.session.Student) && (req.session.Student.verified)) { %>
+	<h1>Already verified!</h1>
+<% } 
+else { %>
+<h1>Validate your email</h1>
+<h2>Check your email inbox, and enter the code in the box below. Make sure you check the spam inbox</h2>
+<form action="/student/compare/<%=req.session.Student.id  %>" name="myform" method="POST" class="form-signin" >
+	<div class="row">
+   	<label class="control-label col-xs-2">Email</label>
+   	<p> <%=req.session.Student.email%> </p>
+   	</div>
+	<div class="row">
+ 	  <label  class="control-label col-xs-2">Code</label>
+ 	  <input type ="text" placeholder="code" name="fcode" class="col-xs-6"/>
+	</div>
+	<div class="col-xs-offset-2 col-xs-6">
+  	  <input type="submit"  value="Validate" class="btn btn-primary center"/>
+    </div>
+</form>
+<% } %>

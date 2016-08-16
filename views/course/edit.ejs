@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<h1>You are editing a course . This function is not working atm, don't try plz</h1>
+<form action="/course/update/<%=course.unit_code%>" method="POST" class="form-signin">
+   <div class="row">
+   <label  class="control-label col-xs-2">Unit Code</label>
+   <input value="<%=course.unit_code%>" name="unit_code" type ="text" class="col-xs-2"/>
+   </div>
+
+   <div class="row">
+   <label  class="control-label col-xs-2">Name</label>
+   <input value="<%=course.name%>" name="name" type ="text" class="col-xs-2"/>
+   </div>
+
+   <div class="row">
+   <label class="control-label col-xs-2">Credit Points</label>
+   <input value="<%=course.credit_points%>" name="credit_points" type ="text" class="col-xs-2"/>
+   </div>
+
+ <!--  <div class="row">
+   <label class="control-label col-xs-2">Date</label>
+   <input  name="date" type ="text" class="col-xs-2"/>
+   </div>
+
+   <div class="row">
+   <label class="control-label col-xs-2">Month</label>
+   <input name="month" type ="text" class="col-xs-2"/>
+   </div>
+
+   <div class="row">
+   <label class="control-label col-xs-2">Year</label>
+   <input name="year" type ="text" class="col-xs-2"/>
+   </div>
+
+   <% for (i=1; i<= course.lecperweek; i++) { %>
+        <div class="row">
+        <label class="control-label col-xs-2">Lecture Time</label>
+        <input name="lec<%=i%>" type ="text" class="col-xs-2"/>
+        </div>       
+   <% } %> -->
+ 
+   
+
+   <div class="col-xs-offset-2 col-xs-10">
+   <input type="submit" value="Proceed" class="btn btn-primary center"/>
+   </div>
+</form>
